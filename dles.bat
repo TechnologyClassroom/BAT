@@ -64,10 +64,12 @@ ECHO.
 ECHO ================= Digital Learning Environment Setup (DLES) =============
 ECHO ======================= What would you like to do? ======================
 ECHO -------------------------------------------------------------------------
-ECHO 1. Setup automatic yearly shutdown (Sep-Jun)
-ECHO 2. Setup automatic summer shutdown (Jul-Aug)
-ECHO 3. Setup yearly HOSTS file rotation (to manage games only on Fridays)
-ECHO 4. Setup summer HOSTS file rotation (to manage games only on Fridays)
+ECHO 1. Setup automatic shutdown for school year(Sep-Jun)
+ECHO 2. Setup automatic shutdown for summer camp (Jul-Aug)
+ECHO 3. Setup HOSTS rotation for school year (to manage games only on Fridays)
+ECHO 4. Setup HOSTS rotation for summer camp (to manage games only on Fridays)
+::ECHO 5. Setup HOSTS rotation for school year (redirects to local server)
+::ECHO 6. Setup HOSTS rotation for summer camp (redirects to local server)
 ECHO ============================PRESS 'Q' TO QUIT============================
 ECHO.
 
@@ -78,6 +80,8 @@ IF /I '%INPUT%'=='1' GOTO Selection1
 IF /I '%INPUT%'=='2' GOTO Selection2
 IF /I '%INPUT%'=='3' GOTO Selection3
 IF /I '%INPUT%'=='4' GOTO Selection4
+::IF /I '%INPUT%'=='5' GOTO Selection5
+::IF /I '%INPUT%'=='6' GOTO Selection6
 IF /I '%INPUT%'=='Q' GOTO EXITMSG
 
 CLS
@@ -100,6 +104,7 @@ GOTO MENU
 
 CLS
 schtasks /delete /tn "Summer Computer Shutdown" /f 1>NUL
+schtasks /delete /tn "Yearly Computer Shutdown" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Yearly Computer Shutdown" /TR "shutdown -s -t 300 -c '7:45PM Auto-Shutdown In Effect.' -f" /ST "19:40:00" 1>NUL
 GOTO progstart
 
@@ -107,6 +112,7 @@ GOTO progstart
 
 CLS
 schtasks /delete /tn "Yearly Computer Shutdown" /f 1>NUL
+schtasks /delete /tn "Summer Computer Shutdown" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "Summer Computer Shutdown" /TR "shutdown -s -t 900 -c '3:55PM Auto-Shutdown In Effect.' -f" /ST "15:40:00" 1>NUL
 GOTO progstart
 
@@ -118,7 +124,6 @@ CLS
 :: Create a directory on disk.
 if not exist C:\hosts mkdir C:\hosts
 
-:: MUST BE RUN WITH ADMIN CMD
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
@@ -152,7 +157,6 @@ CLS
 :: Create some directories on disk.
 if not exist C:\hosts mkdir C:\hosts
 
-:: MUST BE RUN WITH ADMIN CMD
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL

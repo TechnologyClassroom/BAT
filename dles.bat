@@ -70,6 +70,8 @@ ECHO 3. Setup automatic summer shutdown TC (Jul-Aug)
 ECHO 4. Setup school year HOSTS file rotation (games only on Fridays)
 ECHO 5. Setup summer HOSTS file rotation (games only on Fridays)
 ECHO 6. Setup updating HOSTS file (most games any day)
+ECHO 7. Setup school year HOSTS file rotation (local web Server redirect)
+ECHO 8. Setup summer HOSTS file rotation (local web Server redirect)
 ECHO ============================PRESS 'Q' TO QUIT============================
 ECHO.
 
@@ -82,8 +84,10 @@ IF /I '%INPUT%'=='3' GOTO Selection3
 IF /I '%INPUT%'=='4' GOTO Selection4
 IF /I '%INPUT%'=='5' GOTO Selection5
 IF /I '%INPUT%'=='6' GOTO Selection6
+IF /I '%INPUT%'=='7' GOTO Selection7
+IF /I '%INPUT%'=='8' GOTO Selection8
 :: Temporary secret option to remove old naming scheme
-IF /I '%INPUT%'=='T' GOTO Selection7
+IF /I '%INPUT%'=='T' GOTO Selection9
 IF /I '%INPUT%'=='Q' GOTO EXITMSG
 
 CLS
@@ -153,7 +157,7 @@ SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSumme
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriEven.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriEven" /xml HostRotateSchoolFriEven.xml /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
@@ -187,7 +191,7 @@ SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSumme
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriEven.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriEven" /xml HostRotateSummerFriEven.xml /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
@@ -227,7 +231,73 @@ SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart
 SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "UpdateHosts" /TR "C:\hosts\updatehosts.bat" 1>NUL
 
+
 :Selection7
+
+mode con: cols=80 lines=25
+CLS
+
+:: Create a directory on disk.
+if not exist C:\hosts mkdir C:\hosts
+
+:: MUST BE RUN WITH ADMIN CMD
+powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
+powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
+powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
+:: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
+
+:: Create a task that runs every Friday morning.
+schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriMornLS" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriMornLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriMornLS.xml /f 1>NUL
+:: Create a scheduled task that runs every Friday evening.
+schtasks /delete /tn "HostRotateSchoolFriEvenLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriEvenLS" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriEvenLS" /xml HostRotateSchoolFriEvenLS.xml /f 1>NUL
+:: Create a task that runs every time the computer starts
+schtasks /delete /tn "HostRotateonlogonLS" /f 1>NUL
+schtasks /delete /tn "HostRotateonstartLS" /f 1>NUL
+schtasks /delete /tn "UpdateHosts" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml HostRotateonlogonLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml HostRotateonstartLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+
+GOTO progstart
+
+
+:Selection8
+
+mode con: cols=80 lines=25
+CLS
+
+:: Create some directories on disk.
+if not exist C:\hosts mkdir C:\hosts
+
+:: MUST BE RUN WITH ADMIN CMD
+powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
+powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
+powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
+:: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
+
+schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriMornLS" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriMornLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriMornLS.xml /f 1>NUL
+:: Create a scheduled task that runs every Friday evening.
+schtasks /delete /tn "HostRotateSchoolFriEvenLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriEvenLS" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriEvenLS" /xml HostRotateSummerFriEvenLS.xml /f 1>NUL
+:: Create a task that runs every time the computer starts
+schtasks /delete /tn "HostRotateonlogonLS" /f 1>NUL
+schtasks /delete /tn "HostRotateonstartLS" /f 1>NUL
+schtasks /delete /tn "UpdateHosts" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml HostRotateonlogonLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml HostRotateonstartLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+GOTO progstart
+
+:Selection9
 
 mode con: cols=80 lines=25
 CLS

@@ -66,9 +66,10 @@ ECHO ======================= What would you like to do? ======================
 ECHO -------------------------------------------------------------------------
 ECHO 1. Setup automatic school year shutdown (Sep-Jun)
 ECHO 2. Setup automatic summer shutdown (Jul-Aug)
-ECHO 3. Setup school year HOSTS file rotation (games only on Fridays)
-ECHO 4. Setup summer HOSTS file rotation (games only on Fridays)
-ECHO 5. Setup updating HOSTS file (most games any day)
+ECHO 3. Setup automatic summer shutdown TC (Jul-Aug)
+ECHO 4. Setup school year HOSTS file rotation (games only on Fridays)
+ECHO 5. Setup summer HOSTS file rotation (games only on Fridays)
+ECHO 6. Setup updating HOSTS file (most games any day)
 ECHO ============================PRESS 'Q' TO QUIT============================
 ECHO.
 
@@ -80,8 +81,9 @@ IF /I '%INPUT%'=='2' GOTO Selection2
 IF /I '%INPUT%'=='3' GOTO Selection3
 IF /I '%INPUT%'=='4' GOTO Selection4
 IF /I '%INPUT%'=='5' GOTO Selection5
+IF /I '%INPUT%'=='6' GOTO Selection6
 :: Temporary secret option to remove old naming scheme
-IF /I '%INPUT%'=='T' GOTO Selection6
+IF /I '%INPUT%'=='T' GOTO Selection7
 IF /I '%INPUT%'=='Q' GOTO EXITMSG
 
 CLS
@@ -105,7 +107,8 @@ GOTO MENU
 CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "DailySchoolShutdown" /TR "shutdown -s -t 300 -c '7:45PM Auto-Shutdown In Effect.' -f" /ST "19:40:00" 1>NUL
+schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "DailySchoolShutdown" /TR "shutdown -s -t 300 -c '7:45PM Auto-Shutdown In Effect.' -f" /ST "19:40:00" /f 1>NUL
 GOTO progstart
 
 :Selection2
@@ -113,10 +116,22 @@ GOTO progstart
 CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "DailySummerShutdown" /TR "shutdown -s -t 900 -c '3:55PM Auto-Shutdown In Effect.' -f" /ST "15:40:00" 1>NUL
+schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "DailySummerShutdown" /TR "shutdown -s -t 900 -c '3:55PM Auto-Shutdown In Effect.' -f" /ST "15:40:00" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "DailySummerShutdown2" /TR "shutdown -s -t 900 -c '5:55PM Auto-Shutdown In Effect.' -f" /ST "15:40:00" /f 1>NUL
 GOTO progstart
 
 :Selection3
+
+CLS
+schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "DAILY" /TN "DailySummerShutdown3" /TR "shutdown -s -t 300 -c '8:45PM Auto-Shutdown In Effect.' -f" /ST "20:40:00" /f 1>NUL
+GOTO progstart
+
+:Selection4
 
 mode con: cols=80 lines=25
 CLS
@@ -133,24 +148,24 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMorn" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSchoolFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "13:00:00"
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSummerFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "09:05:00"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSchoolFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "13:00:00" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSummerFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "09:05:00" /f 1>NUL
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSchoolFriEven" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "17:45:00" 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSchoolFriEven" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "17:45:00" /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "UpdateHosts" /TR "C:\hosts\updatehosts.bat" 1>NUL
 
 GOTO progstart
 
 
-:Selection4
+:Selection5
 
 mode con: cols=80 lines=25
 CLS
@@ -167,23 +182,23 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMorn" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSchoolFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "13:00:00"
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSummerFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "09:05:00"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSchoolFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "13:00:00" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSummerFriMorn" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "09:05:00" /f 1>NUL
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSummerFriEven" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "15:40:00"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "weekly" /TN "HostRotateSummerFriEven" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /mo 1 /d FRI /ST "15:40:00" /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts"
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSMTWRwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "UpdateHosts" /TR "C:\hosts\updatehosts.bat" 1>NUL
 
 GOTO progstart
 
-:Selection5
+:Selection6
 :: THIS SECTION IS INCOMPLETE
 :: UPDATEBAT NEEDS TO BE MODULAR WITHOUT COPY
 mode con: cols=80 lines=25
@@ -207,11 +222,11 @@ schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts"
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts"
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "UpdateHosts" /TR "C:\hosts\updatehosts.bat" 1>NUL
 
-:Selection6
+:Selection7
 
 mode con: cols=80 lines=25
 CLS

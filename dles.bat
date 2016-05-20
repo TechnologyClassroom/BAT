@@ -72,6 +72,7 @@ ECHO 5. Setup summer HOSTS file rotation (games only on Fridays)
 ECHO 6. Setup updating HOSTS file (most games any day)
 ECHO 7. Setup school year HOSTS file rotation (local web Server redirect)
 ECHO 8. Setup summer HOSTS file rotation (local web Server redirect)
+ECHO C. Reverse changes to scheduled tasks.
 ECHO ============================PRESS 'Q' TO QUIT============================
 ECHO.
 
@@ -86,8 +87,7 @@ IF /I '%INPUT%'=='5' GOTO Selection5
 IF /I '%INPUT%'=='6' GOTO Selection6
 IF /I '%INPUT%'=='7' GOTO Selection7
 IF /I '%INPUT%'=='8' GOTO Selection8
-:: Temporary secret option to remove old naming scheme
-IF /I '%INPUT%'=='T' GOTO Selection9
+IF /I '%INPUT%'=='C' GOTO Selection9
 IF /I '%INPUT%'=='Q' GOTO EXITMSG
 
 CLS
@@ -112,8 +112,10 @@ CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "DailySchoolShutdown" /xml DailySchoolShutdown.xml /f 1>NUL
 GOTO progstart
+
 
 :Selection2
 
@@ -121,9 +123,11 @@ CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown" /xml DailySchoolShutdown.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown2" /xml DailySchoolShutdown2.xml /f 1>NUL
 GOTO progstart
+
 
 :Selection3
 
@@ -134,6 +138,7 @@ schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown3" /xml DailySchoolShutdown3.xml /f 1>NUL
 GOTO progstart
+
 
 :Selection4
 
@@ -201,6 +206,7 @@ SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml HostRotateonstart.xml
 SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
 
 GOTO progstart
+
 
 :Selection6
 :: THIS SECTION IS INCOMPLETE
@@ -295,7 +301,9 @@ schtasks /delete /tn "UpdateHosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml HostRotateonlogonLS.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml HostRotateonstartLS.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+
 GOTO progstart
+
 
 :Selection9
 
@@ -312,10 +320,27 @@ schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
 
+schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
+schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
+schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriMorn" /f 1>NUL
+schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
+schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriMornLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSchoolFriEvenLS" /f 1>NUL
+schtasks /delete /tn "HostRotateSummerFriEvenLS" /f 1>NUL
+schtasks /delete /tn "HostRotateonlogonLS" /f 1>NUL
+schtasks /delete /tn "HostRotateonstartLS" /f 1>NUL
+
 GOTO progstart
+
 
 :Quit
 EXIT
+
 
 :EXITMSG
 

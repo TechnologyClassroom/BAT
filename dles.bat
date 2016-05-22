@@ -6,6 +6,8 @@
 
 :: github.com/BlueHillBGCB/BAT/dles.bat
 
+:: To run this script, right click on the file and choose "Run as administrator" to start.  You should read all bat files before giving them admin rights.
+
 :: Based off of OSACS by agent-squirrel
 :: https://www.reddit.com/r/commandline/comments/2sm2lc/osacs_officeworks_setup_and_cleaning_system/
 
@@ -113,7 +115,7 @@ schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "DailySchoolShutdown" /xml DailySchoolShutdown.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "DailySchoolShutdown" /xml %~dp0/DailySchoolShutdown.xml /f 1>NUL
 GOTO progstart
 
 
@@ -124,8 +126,8 @@ schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown" /xml DailySchoolShutdown.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown2" /xml DailySchoolShutdown2.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown" /xml %~dp0/DailySchoolShutdown.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown2" /xml %~dp0/DailySchoolShutdown2.xml /f 1>NUL
 GOTO progstart
 
 
@@ -136,7 +138,7 @@ schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown3" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown3" /xml DailySchoolShutdown3.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "DailySummerShutdown3" /xml %~dp0/DailySchoolShutdown3.xml /f 1>NUL
 GOTO progstart
 
 
@@ -157,19 +159,19 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMorn" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriMorn.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriMorn.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml %~dp0/HostRotateSchoolFriMorn.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml %~dp0/HostRotateSummerFriMorn.xml /f 1>NUL
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriEven" /xml HostRotateSchoolFriEven.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriEven" /xml %~dp0/HostRotateSchoolFriEven.xml /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogon" /xml HostRotateonlogon.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml HostRotateonstart.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogon" /xml %~dp0/HostRotateonlogon.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml %~dp0/HostRotateonstart.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
 
 GOTO progstart
 
@@ -191,19 +193,19 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMorn" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriMorn.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriMorn.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml %~dp0/HostRotateSchoolFriMorn.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml %~dp0/HostRotateSummerFriMorn.xml /f 1>NUL
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriEven" /xml HostRotateSummerFriEven.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriEven" /xml %~dp0/HostRotateSummerFriEven.xml /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogon" /xml HostRotateonlogon.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml HostRotateonstart.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogon" /xml %~dp0/HostRotateonlogon.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml %~dp0/HostRotateonstart.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
 
 GOTO progstart
 
@@ -234,7 +236,7 @@ schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "UpdateHosts" /TR "C:\hosts\updatehosts.bat" 1>NUL
 
 
@@ -255,19 +257,19 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMornLS" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriMornLS.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriMornLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml %~dp0/HostRotateSchoolFriMornLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml %~dp0/HostRotateSummerFriMornLS.xml /f 1>NUL
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEvenLS" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEvenLS" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriEvenLS" /xml HostRotateSchoolFriEvenLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriEvenLS" /xml %~dp0/HostRotateSchoolFriEvenLS.xml /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogonLS" /f 1>NUL
 schtasks /delete /tn "HostRotateonstartLS" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml HostRotateonlogonLS.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml HostRotateonstartLS.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml %~dp0/HostRotateonlogonLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml %~dp0/HostRotateonstartLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
 
 GOTO progstart
 
@@ -288,19 +290,19 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 
 schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMornLS" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml HostRotateSchoolFriMornLS.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml HostRotateSummerFriMornLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml %~dp0/HostRotateSchoolFriMornLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriMorn" /xml %~dp0/HostRotateSummerFriMornLS.xml /f 1>NUL
 :: Create a scheduled task that runs every Friday evening.
 schtasks /delete /tn "HostRotateSchoolFriEvenLS" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriEvenLS" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriEvenLS" /xml HostRotateSummerFriEvenLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSummerFriEvenLS" /xml %~dp0/HostRotateSummerFriEvenLS.xml /f 1>NUL
 :: Create a task that runs every time the computer starts
 schtasks /delete /tn "HostRotateonlogonLS" /f 1>NUL
 schtasks /delete /tn "HostRotateonstartLS" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml HostRotateonlogonLS.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml HostRotateonstartLS.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml UpdateHosts.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogonLS" /xml %~dp0/HostRotateonlogonLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstartLS" /xml %~dp0/HostRotateonstartLS.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
 
 GOTO progstart
 

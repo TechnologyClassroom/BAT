@@ -171,6 +171,7 @@ schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogon" /xml %~dp0/HostRotateonlogon.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml %~dp0/HostRotateonstart.xml /f 1>NUL
+::SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy /Y C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
 
 GOTO progstart
@@ -211,8 +212,6 @@ GOTO progstart
 
 
 :Selection6
-:: THIS SECTION IS INCOMPLETE
-:: UPDATEBAT NEEDS TO BE MODULAR WITHOUT COPY
 mode con: cols=80 lines=25
 CLS
 
@@ -234,10 +233,11 @@ schtasks /delete /tn "HostRotateSummerFriEven" /f 1>NUL
 schtasks /delete /tn "HostRotateonlogon" /f 1>NUL
 schtasks /delete /tn "HostRotateonstart" /f 1>NUL
 schtasks /delete /tn "UpdateHosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onlogon" /TN "HostRotateonlogon" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "HostRotateonstart" /TR "copy C:\hosts\HOSTSFwin.txt C:\WINDOWS\System32\drivers\etc\hosts" /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonlogon" /xml %~dp0/HostRotateonlogon.xml /f 1>NUL
+SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateonstart" /xml %~dp0/HostRotateonstart.xml /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "UpdateHosts" /xml %~dp0/UpdateHosts.xml /f 1>NUL
-SCHTASKS /Create /RU "SYSTEM" /RL "HIGHEST" /SC "onstart" /TN "UpdateHosts" /TR "C:\hosts\updatehosts.bat" 1>NUL
+
+GOTO progstart
 
 
 :Selection7

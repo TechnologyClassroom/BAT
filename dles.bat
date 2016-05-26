@@ -110,6 +110,8 @@ GOTO MENU
 
 :Selection1
 
+ECHO 1. Setup automatic school year shutdown (Sep-Jun)
+
 CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
@@ -120,6 +122,8 @@ GOTO progstart
 
 
 :Selection2
+
+ECHO 2. Setup automatic summer shutdown (Jul-Aug)
 
 CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
@@ -133,6 +137,8 @@ GOTO progstart
 
 :Selection3
 
+ECHO 3. Setup automatic summer shutdown TC (Jul-Aug)
+
 CLS
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
@@ -143,6 +149,8 @@ GOTO progstart
 
 
 :Selection4
+
+ECHO 4. Setup school year HOSTS file rotation (games only on Fridays)
 
 mode con: cols=80 lines=25
 CLS
@@ -155,6 +163,24 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
+
+:: Create bat files
+:: Build updatehosts.bat
+@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: Michael McMahon>> c:\hosts\updatehosts.bat
+@echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo @ECHO OFF>> c:\hosts\updatehosts.bat
+@echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
+@echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
+
+@echo copy /Y C:\hosts\HOSTSMTWRwin.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\MTWR.bat
+@echo copy /Y C:\hosts\HOSTSFwin.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\F.bat
 
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
@@ -179,6 +205,8 @@ GOTO progstart
 
 :Selection5
 
+ECHO 5. Setup summer HOSTS file rotation (games only on Fridays)
+
 mode con: cols=80 lines=25
 CLS
 
@@ -188,8 +216,25 @@ if not exist C:\hosts mkdir C:\hosts
 :: MUST BE RUN WITH ADMIN CMD
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
-powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
+
+:: Create bat files
+:: Build updatehosts.bat
+@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: Michael McMahon>> c:\hosts\updatehosts.bat
+@echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo @ECHO OFF>> c:\hosts\updatehosts.bat
+@echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
+@echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
+
+@echo copy /Y C:\hosts\HOSTSMTWRwin.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\MTWR.bat
+@echo copy /Y C:\hosts\HOSTSFwin.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\F.bat
 
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
@@ -212,6 +257,9 @@ GOTO progstart
 
 
 :Selection6
+
+ECHO 6. Setup updating HOSTS file (most games any day)
+
 mode con: cols=80 lines=25
 CLS
 
@@ -221,8 +269,24 @@ if not exist C:\hosts mkdir C:\hosts
 :: MUST BE RUN WITH ADMIN CMD
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
-powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
+
+:: Create bat files
+
+:: Build updatehosts.bat
+@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: Michael McMahon>> c:\hosts\updatehosts.bat
+@echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo @ECHO OFF>> c:\hosts\updatehosts.bat
+@echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
+@echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
+
+@echo copy /Y C:\hosts\HOSTSFwin.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\F.bat
 
 :: Removes other tasks that change hosts files Monday-Friday.
 schtasks /delete /tn "HostRotateSchoolFriMorn" /f 1>NUL
@@ -242,6 +306,8 @@ GOTO progstart
 
 :Selection7
 
+ECHO 7. Setup school year HOSTS file rotation (local web Server redirect)
+
 mode con: cols=80 lines=25
 CLS
 
@@ -251,8 +317,25 @@ if not exist C:\hosts mkdir C:\hosts
 :: MUST BE RUN WITH ADMIN CMD
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwinLS.txt'; $path = 'c:\hosts\HOSTSFwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwinLS.txt'; $path = 'c:\hosts\HOSTSMTWRwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
-powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
+
+:: Create bat files
+:: Build updatehosts.bat
+@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: Michael McMahon>> c:\hosts\updatehosts.bat
+@echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo @ECHO OFF>> c:\hosts\updatehosts.bat
+@echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
+@echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwinLS.txt'; $path = 'c:\hosts\HOSTSFwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwinLS.txt'; $path = 'c:\hosts\HOSTSMTWRwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
+
+@echo copy /Y C:\hosts\HOSTSMTWRwinLS.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\MTWRLS.bat
+@echo copy /Y C:\hosts\HOSTSFwinLS.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\FLS.bat
 
 :: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
@@ -276,6 +359,8 @@ GOTO progstart
 
 :Selection8
 
+ECHO 8. Setup summer HOSTS file rotation (local web Server redirect)
+
 mode con: cols=80 lines=25
 CLS
 
@@ -285,9 +370,27 @@ if not exist C:\hosts mkdir C:\hosts
 :: MUST BE RUN WITH ADMIN CMD
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwinLS.txt'; $path = 'c:\hosts\HOSTSFwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwinLS.txt'; $path = 'c:\hosts\HOSTSMTWRwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
-powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/updatehosts.bat'; $path = 'c:\hosts\updatehosts.bat'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL
-:: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate
 
+:: Create bat files
+:: Build updatehosts.bat
+@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: Michael McMahon>> c:\hosts\updatehosts.bat
+@echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
+@echo @ECHO OFF>> c:\hosts\updatehosts.bat
+@echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
+@echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwinLS.txt'; $path = 'c:\hosts\HOSTSFwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwinLS.txt'; $path = 'c:\hosts\HOSTSMTWRwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
+@echo :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
+
+@echo copy /Y C:\hosts\HOSTSMTWRwinLS.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\MTWRLS.bat
+
+@echo copy /Y C:\hosts\HOSTSFwinLS.txt C:\windows\system32\drivers\etc\hosts> C:\hosts\FLS.bat
+
+:: Create a task that runs every Friday morning.
 schtasks /delete /tn "HostRotateSchoolFriMornLS" /f 1>NUL
 schtasks /delete /tn "HostRotateSummerFriMornLS" /f 1>NUL
 SCHTASKS /Create /RU "SYSTEM" /TN "HostRotateSchoolFriMorn" /xml %~dp0\HostRotateSchoolFriMornLS.xml /f 1>NUL
@@ -308,6 +411,8 @@ GOTO progstart
 
 
 :Selection9
+
+ECHO C. Reverse changes to scheduled tasks.
 
 mode con: cols=80 lines=25
 CLS

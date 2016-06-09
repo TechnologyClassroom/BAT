@@ -17,6 +17,13 @@ REM #creates useful scheduled tasks and helps automate
 REM #Windows systems in educational environments.
 REM ######################################################
 
+:: TODO
+:: The system is circumvented from Friday history in cache by doing a special maneuver in the browser.
+:: Rename history with hostname and today's date.
+:: Copy history to a remote machine.
+:: Clear browsing history.
+:: This also solves the problem of not logging out of accounts.
+
 CLS
 mode con: cols=92 lines=20
 

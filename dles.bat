@@ -79,6 +79,7 @@ ECHO 4. Setup HOSTS file rotation (games only on Fridays)
 ECHO 5. Setup updating HOSTS file (most games any day)
 ECHO 6. Setup school year HOSTS file rotation (local web Server redirect)
 ECHO C. Reverse changes to scheduled tasks.
+ECHO.
 ECHO ============================PRESS 'Q' TO QUIT============================
 ECHO.
 

@@ -173,7 +173,7 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 
 :: Create bat files
 :: Build updatehosts.bat
-@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: updatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
 @echo >> c:\hosts\updatehosts.bat

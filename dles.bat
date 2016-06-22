@@ -172,16 +172,16 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 @echo :: undatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
-@echo >> c:\hosts\updatehosts.bat
+@echo. >> c:\hosts\updatehosts.bat
 @echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
-@echo >> c:\hosts\updatehosts.bat
+@echo. >> c:\hosts\updatehosts.bat
 @echo @ECHO OFF>> c:\hosts\updatehosts.bat
 @echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
 @echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
 @echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
 @echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwin.txt'; $path = 'c:\hosts\HOSTSMTWRwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
 @echo :: Formatting from http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
-
+@echo. >> c:\hosts\updatehosts.bat
 @echo :: This copies the hosts file depending on the day>> c:\hosts\updatehosts.bat
 @echo setlocal 1>NUL>> c:\hosts\updatehosts.bat
 @echo for /f "delims=" %%%%a in ('wmic path win32_localtime get dayofweek /format:list ') do for /f "delims=" %%%%d in ("%%%%a") do set %%%%d 1>NUL>> c:\hosts\updatehosts.bat
@@ -218,15 +218,15 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/
 @echo :: undatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
-@echo >> c:\hosts\updatehosts.bat
+@echo. >> c:\hosts\updatehosts.bat
 @echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
-@echo >> c:\hosts\updatehosts.bat
+@echo. >> c:\hosts\updatehosts.bat
 @echo @ECHO OFF>> c:\hosts\updatehosts.bat
 @echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
 @echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
 @echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
 @echo :: Formatting from ::http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
-
+@echo. >> c:\hosts\updatehosts.bat
 @echo :: This copies the hosts file>> c:\hosts\updatehosts.bat
 @echo copy /Y C:\hosts\HOSTSFwin.txt C:\windows\system32\drivers\etc\hosts 1>NUL>> c:\hosts\updatehosts.bat
 
@@ -257,16 +257,16 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/
 @echo :: undatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
-@echo >> c:\hosts\updatehosts.bat
+@echo. >> c:\hosts\updatehosts.bat
 @echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
-@echo >> c:\hosts\updatehosts.bat
+@echo. >> c:\hosts\updatehosts.bat
 @echo @ECHO OFF>> c:\hosts\updatehosts.bat
 @echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
 @echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
 @echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwinLS.txt'; $path = 'c:\hosts\HOSTSFwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
 @echo powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSMTWRwinLS.txt'; $path = 'c:\hosts\HOSTSMTWRwinLS.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL>> c:\hosts\updatehosts.bat
 @echo :: Formatting from http://blog.gpunktschmitz.com/504-powershell-download-file-from-server-via-https-which-has-a-self-signed-certificate>> c:\hosts\updatehosts.bat
-
+@echo. >> c:\hosts\updatehosts.bat
 @echo :: This copies the hosts file depending on the day>> c:\hosts\updatehosts.bat
 @echo setlocal 1>NUL>> c:\hosts\updatehosts.bat
 @echo for /f "delims=" %%%%a in ('wmic path win32_localtime get dayofweek /format:list ') do for /f "delims=" %%%%d in ("%%%%a") do set %%%%d 1>NUL>> c:\hosts\updatehosts.bat

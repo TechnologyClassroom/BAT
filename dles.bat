@@ -79,7 +79,6 @@ ECHO 4. Setup HOSTS file rotation (games only on Fridays)
 ECHO 5. Setup updating HOSTS file (most games any day)
 ECHO 6. Setup school year HOSTS file rotation (local web Server redirect)
 ECHO C. Reverse changes to scheduled tasks.
-ECHO.
 ECHO ============================PRESS 'Q' TO QUIT============================
 ECHO.
 
@@ -173,9 +172,9 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 @echo :: undatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
-@echo. >> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
 @echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
-@echo. >> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
 @echo @ECHO OFF>> c:\hosts\updatehosts.bat
 @echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
 @echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
@@ -185,8 +184,8 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/BAT/master/up
 
 @echo ::http://stackoverflow.com/questions/11364147/setting-a-windows-batch-file-variable-to-the-day-of-the-week 1>NUL>> c:\hosts\updatehosts.bat
 @echo setlocal 1>NUL>> c:\hosts\updatehosts.bat
-@echo for /f "delims=" %%a in ('wmic path win32_localtime get dayofweek /format:list ') do for /f "delims=" %%d in ("%%a") do set %%d 1>NUL>> c:\hosts\updatehosts.bat
-@echo IF %dayofweek%==5 (copy /Y C:\hosts\HOSTSFwin.txt C:\windows\system32\drivers\etc\hosts) ELSE (copy /Y C:\hosts\HOSTSMTWRwin.txt C:\windows\system32\drivers\etc\hosts) 1>NUL>> c:\hosts\updatehosts.bat
+@echo for /f "delims=" %%%%a in ('wmic path win32_localtime get dayofweek /format:list ') do for /f "delims=" %%%%d in ("%%%%a") do set %%%%d 1>NUL>> c:\hosts\updatehosts.bat
+@echo IF %%dayofweek%%==5 (copy /Y C:\hosts\HOSTSFwin.txt C:\windows\system32\drivers\etc\hosts) ELSE (copy /Y C:\hosts\HOSTSMTWRwin.txt C:\windows\system32\drivers\etc\hosts) 1>NUL>> c:\hosts\updatehosts.bat
 @echo endlocal 1>NUL>> c:\hosts\updatehosts.bat
 
 :: Create a task that runs every time the computer starts
@@ -218,9 +217,9 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/
 @echo :: undatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
-@echo. >> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
 @echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
-@echo. >> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
 @echo @ECHO OFF>> c:\hosts\updatehosts.bat
 @echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
 @echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
@@ -253,12 +252,12 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/
 
 :: Create bat files
 :: Build updatehosts.bat
-@echo :: updatehosts.bat> c:\hosts\updatehosts.bat
+@echo :: undatehosts.bat> c:\hosts\updatehosts.bat
 @echo :: Michael McMahon>> c:\hosts\updatehosts.bat
 @echo :: This script downloads HOSTS files from github.com/BlueHillBGCB/HOSTS on Windows systems.>> c:\hosts\updatehosts.bat
-@echo. >> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
 @echo :: MUST BE RUN WITH ADMIN CMD>> c:\hosts\updatehosts.bat
-@echo. >> c:\hosts\updatehosts.bat
+@echo >> c:\hosts\updatehosts.bat
 @echo @ECHO OFF>> c:\hosts\updatehosts.bat
 @echo :: Create a directory on disk.>> c:\hosts\updatehosts.bat
 @echo if not exist C:\hosts mkdir C:\hosts>> c:\hosts\updatehosts.bat
@@ -268,9 +267,12 @@ powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/
 
 @echo ::http://stackoverflow.com/questions/11364147/setting-a-windows-batch-file-variable-to-the-day-of-the-week 1>NUL>> c:\hosts\updatehosts.bat
 @echo setlocal 1>NUL>> c:\hosts\updatehosts.bat
-@echo for /f "delims=" %%a in ('wmic path win32_localtime get dayofweek /format:list ') do for /f "delims=" %%d in ("%%a") do set %%d 1>NUL>> c:\hosts\updatehosts.bat
-@echo IF %dayofweek%==5 (copy /Y C:\hosts\HOSTSFwinLS.txt C:\windows\system32\drivers\etc\hosts) ELSE (copy /Y C:\hosts\HOSTSMTWRwinLS.txt C:\windows\system32\drivers\etc\hosts) 1>NUL>> c:\hosts\updatehosts.bat
+@echo for /f "delims=" %%%%a in ('wmic path win32_localtime get dayofweek /format:list ') do for /f "delims=" %%%%d in ("%%%%a") do set %%%%d 1>NUL>> c:\hosts\updatehosts.bat
+@echo IF %%dayofweek%%==5 (copy /Y C:\hosts\HOSTSFwinLS.txt C:\windows\system32\drivers\etc\hosts) ELSE (copy /Y C:\hosts\HOSTSMTWRwinLS.txt C:\windows\system32\drivers\etc\hosts) 1>NUL>> c:\hosts\updatehosts.bat
 @echo endlocal 1>NUL>> c:\hosts\updatehosts.bat
+
+
+
 
 :: Create a task that runs every time the computer starts
 SCHTASKS /delete /tn "UpdateHosts" /f 1>NUL

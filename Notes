@@ -1,0 +1,22 @@
+::Notes for BATch file scripting
+
+:: Help for xcopy
+xcopy /?
+
+:: Copy a file and append the date
+xcopy C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History C:\hosts\history.$(date +"%Y%m%d")
+:: Formatting from http://unix.stackexchange.com/questions/96380/how-to-append-date-to-backup-file
+
+:: Help for delete
+del /?
+
+/q quiet mode
+/p prompts for each file/folder
+/s recursive
+/f force includes read-only files
+
+:: Delete the folder and all recursive files and folders
+rmdir /s /q "\\server\share\logs\"
+
+:: Delete all files that end with .tmp in the current directory and all recursive directories
+del /s /p *.tmp

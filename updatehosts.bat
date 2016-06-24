@@ -5,6 +5,41 @@
 :: MUST BE RUN WITH ADMIN CMD
 
 @ECHO OFF
+
+:: Copy a file and append the date
+set backupFilename=_%date:~-4,4%%date:~-7,2%%date:~-10,2%
+copy "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History" "C:\hosts\history%backupFilename%"
+:: Formatting from https://community.tableau.com/thread/172730
+:: Formatting from Bernhard Hofmann on http://stackoverflow.com/questions/864718/how-to-append-a-date-in-batch-files
+
+:: Delete Chrome history and cache
+rmdir /s /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Local Storage"
+rmdir /s /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Cache"
+
+:: Delete Chrome history and cache
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Cookies"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Cookies-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Current Session"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Current Tabs"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Login Data"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Login Data-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Network Action Predictor"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Network Action Predictor-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Network Presistent State"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Origin Bound Certs"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Origin Bound Certs-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\QuotaManager"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\QuotaManager-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Top Sites"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Top Sites-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\TransportSecurity"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Visited Links"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Web Data"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\Web Data-journal"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History"
+del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History Provider Cache"
+
 :: Create a directory on disk.
 if not exist C:\hosts mkdir C:\hosts
 powershell "$url = 'https://raw.githubusercontent.com/BlueHillBGCB/HOSTS/master/HOSTSFwin.txt'; $path = 'c:\hosts\HOSTSFwin.txt'; [Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}; $webClient = new-object System.Net.WebClient; $webClient.DownloadFile( $url, $path )" 1>NUL

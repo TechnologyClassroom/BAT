@@ -4,8 +4,7 @@
 xcopy /?
 
 :: Copy a file and append the date
-xcopy C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History C:\hosts\history.$(date +"%Y%m%d")
-:: Formatting from http://unix.stackexchange.com/questions/96380/how-to-append-date-to-backup-file
+xcopy C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History C:\hosts\history
 
 :: Help for delete
 del /?

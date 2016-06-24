@@ -18,7 +18,7 @@ del /?
 /f force includes read-only files
 
 :: Delete the folder and all recursive files and folders
-rmdir /s /q "\\server\share\logs\"
+rmdir /s /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\"
 
 :: Delete all files that end with .tmp in the current directory and all recursive directories
 del /s /p *.tmp

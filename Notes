@@ -4,7 +4,9 @@
 xcopy /?
 
 :: Copy a file and append the date
-xcopy C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History C:\hosts\history
+set backupFilename=_%date:~-4,4%%date:~-7,2%%date:~-10,2%
+xcopy "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History" "C:\hosts\history%backupFilename%"
+:: Formatting from https://community.tableau.com/thread/172730
 
 :: Help for delete
 del /?

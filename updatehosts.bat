@@ -7,7 +7,7 @@
 @ECHO OFF
 
 :: Copy a file and append the date.  Then, delete the history.
-set backupFilename=_%date:~-4,4%%date:~-10,2%%date:~-7,2%
+set backupFilename=_%date:~-4,4%%date:~-10,2%%date:~-7,2%-%time:~-10,1%%time:~-8,2%
 copy "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History" "C:\hosts\history%backupFilename%" && del /s /f /q "C:\Users\bluehill\AppData\Local\Google\Chrome\User Data\Default\History"
 :: Formatting from https://community.tableau.com/thread/172730
 :: Formatting from Bernhard Hofmann on http://stackoverflow.com/questions/864718/how-to-append-a-date-in-batch-files

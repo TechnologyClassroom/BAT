@@ -112,9 +112,11 @@ GOTO MENU
 
 :Selection1
 
-ECHO 1. Setup automatic school year shutdown (Sep-Jun)
-
 CLS
+
+ECHO 1. Setup automatic school year shutdown (Sep-Jun)
+ECHO =============================Installing...===============================
+
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
@@ -125,9 +127,11 @@ GOTO progstart
 
 :Selection2
 
-ECHO 2. Setup automatic summer shutdown (Jul-Aug)
-
 CLS
+
+ECHO 2. Setup automatic summer shutdown (Jul-Aug)
+ECHO =============================Installing...===============================
+
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
@@ -139,9 +143,11 @@ GOTO progstart
 
 :Selection3
 
-ECHO 3. Setup automatic summer shutdown TC (Jul-Aug)
-
 CLS
+
+ECHO 3. Setup automatic summer shutdown TC (Jul-Aug)
+ECHO =============================Installing...===============================
+
 schtasks /delete /tn "DailySchoolShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown" /f 1>NUL
 schtasks /delete /tn "DailySummerShutdown2" /f 1>NUL
@@ -152,10 +158,11 @@ GOTO progstart
 
 :Selection4
 
-ECHO 4. Setup HOSTS file rotation (games only on Fridays)
-
 mode con: cols=80 lines=25
 CLS
+
+ECHO 4. Setup HOSTS file rotation (games only on Fridays)
+ECHO =============================Installing...===============================
 
 :: Create a directory on disk.
 if not exist C:\hosts mkdir C:\hosts
@@ -199,10 +206,11 @@ GOTO progstart
 
 :Selection5
 
-ECHO 5. Setup updating HOSTS file (most games any day)
-
 mode con: cols=80 lines=25
 CLS
+
+ECHO 5. Setup updating HOSTS file (most games any day)
+ECHO =============================Installing...===============================
 
 :: Create some directories on disk.
 if not exist C:\hosts mkdir C:\hosts
@@ -239,10 +247,11 @@ GOTO progstart
 
 :Selection6
 
-ECHO 6. Setup HOSTS file rotation (local web Server redirect)
-
 mode con: cols=80 lines=25
 CLS
+
+ECHO 6. Setup HOSTS file rotation (local web Server redirect)
+ECHO =============================Installing...===============================
 
 :: Create a directory on disk.
 if not exist C:\hosts mkdir C:\hosts
@@ -287,10 +296,11 @@ GOTO progstart
 
 :Selection9
 
-ECHO C. Reverse changes to scheduled tasks.
-
 mode con: cols=80 lines=25
 CLS
+
+ECHO C. Reverse changes to scheduled tasks.
+ECHO =============================Installing...===============================
 
 schtasks /delete /tn "Summer Computer Shutdown" /f 1>NUL
 schtasks /delete /tn "Yearly Computer Shutdown" /f 1>NUL
